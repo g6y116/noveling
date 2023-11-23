@@ -1,0 +1,9 @@
+a { text-decoration: none; }
+.mts { margin-top: 16px; }
+.mtm { margin-top: 32px; }
+.mtl { margin-top: 64px; }
+.text-left { text-align:left; }
+.text-center { text-align:center; }
+.text-right { text-align:right; }
+.mform { max-width: 560px; }
+.field-error { border-color: #dc3545; color: #dc3545; }

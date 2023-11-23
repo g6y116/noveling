@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<header class="py-3 mb-4 border-bottom" th:fragment="header">
+  <div class="container d-flex flex-wrap justify-content-center">
+    <a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none">
+      <img src="/icon/logo.png" class="bi me-2" width="32" height="32">
+      <span class="fs-4 fw-medium">모두의 소설 공간 - Noveling</span>
+    </a>
+
+    <form th:action="@{/}" method="get" class="d-flex" role="search">
+      <input type="search" class="form-control me-2" placeholder="Search" aria-label="Search" id="query" name="query">
+      <button class="btn btn-primary btn" type="submit">Search</button>
+    </form>
+  </div>
+</header>

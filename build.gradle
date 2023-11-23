@@ -39,15 +39,15 @@ dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	runtimeOnly 'com.h2database:h2'
-	runtimeOnly 'com.mysql:mysql-connector-j'
+//	runtimeOnly 'com.mysql:mysql-connector-j'
 
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.7' // sql param
 	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}" // querydsl
 	annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}" // querydsl
 
 
-	implementation 'org.springframework.boot:spring-boot-starter-security' // security
-	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5' // security
+//	implementation 'org.springframework.boot:spring-boot-starter-security' // security
+//	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5' // security
 
 	implementation 'org.commonmark:commonmark:0.21.0' // markdown
 
