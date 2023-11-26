@@ -126,17 +126,6 @@ class NovelServiceTest {
     }
 
     @Test
-    void getMyNovels() {
-        //given
-
-        //when
-        List<NovelSimpleDto> myNovels = novelService.getMyNovels(testMember.getId());
-
-        //then
-        assertThat(myNovels.size()).isEqualTo(4);
-    }
-
-    @Test
     void addNovel() {
         //given
         AddNovelForm addNovelForm = new AddNovelForm("제목111", "설명111", null, Genre.FANTASY);

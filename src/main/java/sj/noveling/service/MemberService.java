@@ -2,7 +2,11 @@ package sj.noveling.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import sj.noveling.dto.CommentDto;
+import sj.noveling.dto.NovelSimpleDto;
+import sj.noveling.entity.Comment;
 import sj.noveling.entity.Member;
+import sj.noveling.entity.Novel;
 import sj.noveling.exception.DataExistsException;
 import sj.noveling.exception.DataNotFoundException;
 import sj.noveling.form.JoinForm;
@@ -12,7 +16,9 @@ import sj.noveling.repository.CommentRepository;
 import sj.noveling.repository.MemberRepository;
 import sj.noveling.repository.NovelRepository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -42,6 +48,36 @@ public class MemberService {
             return member.get();
         } else {
             throw new DataNotFoundException("로그인 정보가 맞지 않습니다.");
+        }
+    }
+
+    public Member getMember(Long memberId) {
+        Optional<Member> member = memberRepository.findById(memberId);
+
+        if (member.isPresent()) {
+            return member.get();
+        } else {
+            throw new DataNotFoundException("존재하지 않는 회원입니다.");
+        }
+    }
+
+    public List<NovelSimpleDto> getMyNovels(Long memberId) {
+        Optional<Member> member = memberRepository.findById(memberId);
+
+        if (member.isPresent()) {
+            return member.get().getNovels().stream().map(Novel::toNovelSimpleDto).collect(Collectors.toList());
+        } else {
+            throw new DataNotFoundException("존재하지 않는 회원입니다.");
+        }
+    }
+
+    public List<CommentDto> getMyComments(Long memberId) {
+        Optional<Member> member = memberRepository.findById(memberId);
+
+        if (member.isPresent()) {
+            return member.get().getComments().stream().map(Comment::toCommentDto).collect(Collectors.toList());
+        } else {
+            throw new DataNotFoundException("존재하지 않는 회원입니다.");
         }
     }
 

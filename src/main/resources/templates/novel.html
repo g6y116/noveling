@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragment/head :: head"/>
+
+<body>
+
+<!-- 네비게이션 -->
+<nav th:replace="fragment/nav :: nav"/>
+
+<!-- 헤더 -->
+<header th:replace="fragment/header :: header"/>
+
+<main class="container" th:object="${novel}">
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="row">
+                <div class="col">
+                    <img class="img-fluid rounded" height="auto" th:src="|/cover/*{cover}|" width="100%">
+                </div>
+                <div class="col">
+                    <p class="fs-2 fw-medium">[[*{title}]]</p>
+
+                    <hr>
+
+                    <img height="24" src="/icon/pen.svg" width="24">
+                    <th:block th:text="|*{name}|"/>
+                    <img height="24" src="/icon/book.svg" th:class="mss" width="24">
+                    <th:block th:text="|*{genre.getValue()}|"/>
+
+                    <hr>
+
+                    <p class="fs-6 fw-medium">[[*{description}]]</p>
+
+                    <!--                    <div class="mts text-right" th:if="(${member} neq null) and ${member.name} eq *{name}">-->
+                    <a th:href="@{/novel/set/{novel_id}(novel_id=${novel.id})}">
+                        <button class="btn btn-secondary btn-sm" type="button">작품 수정</button>
+                    </a>
+                    <a th:href="@{/novel/remove/{novel_id}(novel_id=${novel.id})}">
+                        <button class="btn btn-secondary btn-sm" type="button">작품 삭제</button>
+                    </a>
+                    <!--                    </div>-->
+                </div>
+            </div>
+
+            <hr>
+
+            <p class="fs-4 fw-medium">회차</p>
+
+            <ol class="list-group list-group-numbered">
+                <div class="fw-bold" th:each="chapter : *{chapters}">
+                    <a th:href="|/chapter/${chapter.id}|">
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold" th:text="${chapter.title}"></div>
+
+                                <a class="btn btn-secondary btn-sm mts"
+                                   th:href="@{/chapter/set/{chapter_id}(chapter_id=${chapter.id})}">회차 수정</a>
+                                <a class="btn btn-secondary btn-sm mts"
+                                   th:href="@{/chapter/remove/{chapter_id}(chapter_id=${chapter.id})}">회차
+                                    삭제</a>
+                                <!--                            <div class="mts text-right" th:if="(${member} neq null) and ${member.name} eq *{name}">-->
+                                <!--                            </div>-->
+                            </div>
+                        </li>
+                    </a>
+                </div>
+            </ol>
+
+            <!--            <div class="mts text-right" th:if="${member} neq null">-->
+            <a th:href="@{/chapter/add/{novel_id}(novel_id=${novel.id})}">
+                <button class="btn btn-secondary btn-sm mtl" type="button">회차 추가</button>
+            </a>
+            <!--            </div>-->
+        </div>
+
+        <!-- 사이드 바 -->
+        <div th:replace="fragment/side :: side (${newNovels}, ${bestNovels})"/>
+    </div>
+</main>
+
+<footer th:replace="fragment/footer :: footer"/>
+
+</body>
+</html>

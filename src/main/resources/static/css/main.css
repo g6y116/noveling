@@ -2,6 +2,9 @@ a { text-decoration: none; }
 .mts { margin-top: 16px; }
 .mtm { margin-top: 32px; }
 .mtl { margin-top: 64px; }
+.mss { margin-left: 16px; }
+.msm { margin-left: 32px; }
+.msl { margin-left: 64px; }
 .text-left { text-align:left; }
 .text-center { text-align:center; }
 .text-right { text-align:right; }

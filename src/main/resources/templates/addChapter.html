@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragment/head :: head" />
+
+<body>
+
+<!-- 네비게이션 -->
+<nav th:replace="fragment/nav :: nav" />
+
+<!-- 헤더 -->
+<header th:replace="fragment/header :: header" />
+
+<main class="container mform">
+
+  <div class="py-5 text-center">
+    <h2>회차 등록</h2>
+  </div>
+
+  <form th:object="${addChapterForm}" method="post">
+
+    <div class="m3 mts">
+      <label for="title">회차 명</label>
+      <input type="text" id="title" th:field="*{title}" class="form-control">
+      <div class="field-error" th:errors="*{title}"></div>
+    </div>
+
+    <div class="m3 mts">
+      <label for="content">내용</label>
+      <textarea id="content" th:field="*{content}" class="form-control" rows="15" cols="35" style="resize: none"></textarea>
+      <div class="field-error" th:errors="*{content}"></div>
+    </div>
+
+    <div th:if="${#fields.hasGlobalErrors()}">
+      <p class="field-error mts" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+    </div>
+
+    <input type="hidden" id="novelId" th:field="*{novelId}" class="form-control">
+
+    <hr class="my-4">
+
+    <div class="row">
+      <div class="col">
+        <button class="w-100 btn btn-primary btn-lg" type="submit">등록</button>
+      </div>
+      <div class="col">
+        <button class="w-100 btn btn-secondary btn-lg" th:onclick="|location.href='@{/}'|" type="button">취소</button>
+      </div>
+    </div>
+  </form>
+</main>
+
+</body>
+</html>

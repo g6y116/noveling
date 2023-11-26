@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragment/head :: head"/>
+
+<body>
+
+<!-- 네비게이션 -->
+<nav th:replace="fragment/nav :: nav"/>
+
+<!-- 헤더 -->
+<header th:replace="fragment/header :: header"/>
+
+<main class="container" th:object="${chapter}">
+
+    <div class="row">
+        <div class="col-lg-8">
+
+            <div class="card">
+                <p class="card-header fs-2" th:text="|*{title}|">회차 제목</p>
+                <div class="card-body">
+                    <p class="card-text" th:text="|*{content}|">회차 내용</p>
+                </div>
+            </div>
+
+            <h6 class="mtl" th:text="|댓글 *{commentCnt}|">댓글</h6>
+
+            <div class="list-group mts">
+                <div class="list-group-item list-group-item" th:each="comment : *{comments}">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1" th:text="${comment.content}">내용</h5>
+                        <small>날짜</small>
+                    </div>
+                    <p class="mb-1 mts" th:text="${comment.name}">작성자</p>
+                    <small><a class="btn btn-secondary btn-sm mts" th:href="@{/comment/delete(chapter_id=${chapter.id}, comment_id=${comment.id})}">댓글 삭제</a></small>
+                </div>
+            </div>
+
+            <form action="/comment/create" class="mts" method='post' th:if="${member} eq null">
+                <textarea class="form-control" name="content" placeholder="댓글을 작성하려면 로그인 해주세요" rows="3" style="resize: none" disabled></textarea>
+                <div class="mts text-right">
+                    <a class="btn btn-secondary btn-sm" th:href="@{/login}">로그인</a>
+                </div>
+            </form>
+
+            <form action="/comment/create" class="mts" method='post' th:if="${member} neq null">
+                <textarea class="form-control" name="content" placeholder="댓글을 작성해주세요" rows="3" style="resize: none"></textarea>
+                <input class="form-control" th:name="chapterId" th:value="|*{id}|" type="hidden">
+                <div class="mts text-right"><button class="btn btn-secondary btn-sm" type="submit">등록</button></div>
+            </form>
+        </div>
+
+        <!-- 사이드 바 -->
+        <div th:replace="fragment/side :: side (${newNovels}, ${bestNovels})"/>
+    </div>
+</main>
+
+<footer th:replace="fragment/footer :: footer"/>
+
+</body>
+</html>

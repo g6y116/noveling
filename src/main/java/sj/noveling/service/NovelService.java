@@ -3,7 +3,6 @@ package sj.noveling.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
-import sj.noveling.Const;
 import sj.noveling.dto.NovelDetailDto;
 import sj.noveling.dto.NovelSimpleDto;
 import sj.noveling.entity.Member;
@@ -30,7 +29,7 @@ public class NovelService {
 
     // 전체 작품 페이징
     public Page<NovelSimpleDto> getNovels(int page, String query, Genre genre) {
-        Pageable pageable = PageRequest.of(page, 10);
+        Pageable pageable = PageRequest.of(page, 4);
 
         Page<Novel> originResults = queryDslRepository.pageNovels(query, genre, pageable);
         List<NovelSimpleDto> listResults
@@ -55,17 +54,6 @@ public class NovelService {
         List<Novel> originResults = queryDslRepository.bestNovels();
 
         return originResults.stream().map(Novel::toNovelSimpleDto).collect(Collectors.toList());
-    }
-
-    // 내 작품 리스트 조회
-    public List<NovelSimpleDto> getMyNovels(Long memberId) {
-        Optional<Member> member = memberRepository.findById(memberId);
-
-        if (member.isPresent()) {
-            return novelRepository.findByMember(member.get()).stream().map(Novel::toNovelSimpleDto).collect(Collectors.toList());
-        } else {
-            throw new DataNotFoundException("작가가 존재하지 않습니다.");
-        }
     }
 
     // 작품 등록

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragment/head :: head" />
+
+<body>
+
+<!-- 네비게이션 -->
+<nav th:replace="fragment/nav :: nav" />
+
+<!-- 헤더 -->
+<header th:replace="fragment/header :: header" />
+
+<main class="container mform">
+
+  <div class="py-5 text-center">
+    <h2>회원가입</h2>
+  </div>
+
+  <form th:action th:object="${joinForm}" method="post">
+
+    <div class="m3 mts">
+      <label for="name">필명</label>
+      <input type="text" id="name" th:field="*{name}" class="form-control">
+      <div class="field-error" th:errors="*{name}"></div>
+    </div>
+
+    <div class="m3 mts">
+      <label for="loginId">로그인 ID</label>
+      <input type="text" id="loginId" th:field="*{loginId}" class="form-control">
+      <div class="field-error" th:errors="*{loginId}"></div>
+    </div>
+
+    <div class="m3 mts">
+      <label for="loginPw">비밀번호</label>
+      <input type="password" id="loginPw" th:field="*{loginPw}" class="form-control">
+      <div class="field-error" th:errors="*{loginPw}"></div>
+    </div>
+
+    <div th:if="${#fields.hasGlobalErrors()}">
+      <p class="field-error mts" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+    </div>
+
+    <hr class="my-4">
+
+    <div class="row">
+      <div class="col">
+        <button class="w-100 btn btn-primary btn-lg" type="submit">회원가입</button>
+      </div>
+      <div class="col">
+        <button class="w-100 btn btn-secondary btn-lg" th:onclick="|location.href='@{/}'|" type="button">취소</button>
+      </div>
+    </div>
+  </form>
+</main>
+
+</body>
+</html>
