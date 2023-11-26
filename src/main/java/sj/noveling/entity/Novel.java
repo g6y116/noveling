@@ -50,11 +50,17 @@ public class Novel {
 
     private LocalDateTime modifyDate;
 
+    @Column(name = "novel_view_count", columnDefinition = "INT DEFAULT 0")
+    private int viewCount;
+
     public Novel(String title, String description, Genre genre, Member member) {
         this.title = title;
         this.description = description;
         this.genre = genre;
         this.member = member;
+        createDate = LocalDateTime.now();
+        modifyDate = LocalDateTime.now();
+        viewCount = 0;
     }
 
     public Novel(String title, String description, String cover, Genre genre, Member member) {
@@ -63,6 +69,9 @@ public class Novel {
         this.cover = cover;
         this.genre = genre;
         this.member = member;
+        createDate = LocalDateTime.now();
+        modifyDate = LocalDateTime.now();
+        viewCount = 0;
     }
 
     public NovelSimpleDto toNovelSimpleDto() {

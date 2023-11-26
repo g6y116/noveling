@@ -45,6 +45,8 @@ public class NovelService {
         Optional<Novel> originResult = novelRepository.findById(novelId);
 
         if (originResult.isPresent()) {
+            originResult.get().setViewCount(originResult.get().getViewCount() + 1); // 조회 수 처리
+            novelRepository.save(originResult.get());
             return originResult.get().toNovelDetailDto();
         } else {
             throw new DataNotFoundException("작품이 존재하지 않습니다.");
@@ -64,6 +66,13 @@ public class NovelService {
         } else {
             throw new DataNotFoundException("작품이 존재하지 않습니다.");
         }
+    }
+
+    // 인기 작품 리스트 조회
+    public List<NovelSimpleDto> getNewestNovels() {
+        List<Novel> originResults = queryDslRepository.newestNovels();
+
+        return originResults.stream().map(Novel::toNovelSimpleDto).collect(Collectors.toList());
     }
 
     // 인기 작품 리스트 조회

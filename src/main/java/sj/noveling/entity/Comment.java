@@ -38,14 +38,16 @@ public class Comment {
         this.content = content;
         this.chapter = chapter;
         this.member = member;
-        this.createDate = LocalDateTime.now();
+        createDate = LocalDateTime.now();
+        modifyDate = LocalDateTime.now();
     }
 
     public CommentDto toCommentDto() {
         return new CommentDto(
                 getId(),
                 getContent(),
-                getMember().getName()
+                getMember().getName(),
+                getModifyDate()
         );
     }
 }

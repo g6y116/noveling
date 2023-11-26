@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import sj.noveling.dto.NovelDetailDto;
+import sj.noveling.dto.NovelSimpleDto;
 import sj.noveling.entity.Member;
 import sj.noveling.entity.Novel;
 import sj.noveling.exception.NoPermissionException;
@@ -22,6 +23,7 @@ import sj.noveling.type.Genre;
 
 import java.security.Principal;
 import java.util.Collections;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -46,6 +48,12 @@ public class NovelController {
     ) {
         NovelDetailDto novelDetailDto = novelService.getNovel(novelId);
         model.addAttribute("novel", novelDetailDto);
+
+        List<NovelSimpleDto> newNovels = novelService.getNewestNovels();
+        model.addAttribute("newNovels", newNovels);
+
+        List<NovelSimpleDto> bestNovels = novelService.getBestNovels();
+        model.addAttribute("bestNovels", bestNovels);
         return "novel";
     }
 

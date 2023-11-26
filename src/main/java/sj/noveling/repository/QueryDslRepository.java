@@ -52,18 +52,30 @@ public class QueryDslRepository {
         return genre != null ? novel.genre.eq(genre) : null;
     }
 
+    // 최근 작품 리스트
+    public List<Novel> newestNovels() {
+        QueryResults<Novel> results = queryFactory
+                .selectFrom(novel)
+                .where(novel.modifyDate.isNotNull())
+                .orderBy(novel.modifyDate.desc())
+                .limit(3)
+                .fetchResults();
+
+        List<Novel> contents = results.getResults();
+        return contents;
+    }
+
     // 인기 작품 리스트
     public List<Novel> bestNovels() {
-//        QueryResults<Novel> results = queryFactory
-//                .selectFrom(novel).leftJoin(novel.subscribers).fetchJoin()
-//                .orderBy(novel.subscribers.size().desc(), novel.id.desc())
-//                .limit(5)
-//                .fetchResults();
-//
-//        List<Novel> contents = results.getResults();
-//        return contents;
+        QueryResults<Novel> results = queryFactory
+                .selectFrom(novel)
+                .where(novel.viewCount.ne(0))
+                .orderBy(novel.viewCount.desc())
+                .limit(3)
+                .fetchResults();
 
-        return new ArrayList<>();
+        List<Novel> contents = results.getResults();
+        return contents;
     }
 
     // 회차 리스트

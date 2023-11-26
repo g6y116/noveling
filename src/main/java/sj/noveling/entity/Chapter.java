@@ -44,7 +44,8 @@ public class Chapter {
         this.title = title;
         this.content = content;
         this.novel = novel;
-        this.createDate = LocalDateTime.now();
+        createDate = LocalDateTime.now();
+        modifyDate = LocalDateTime.now();
     }
 
     public ChapterSimpleDto toChapterSimpleDto() {
