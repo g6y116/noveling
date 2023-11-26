@@ -19,6 +19,8 @@
 
   <form th:object="${addNovelForm}" method="post">
 
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
     <div class="m3 mts">
       <label for="title">작품 명</label>
       <input type="text" id="title" th:field="*{title}" class="form-control">
@@ -37,12 +39,7 @@
         <input type="radio" th:field="*{genre}" th:value="${genre.name()}" class="form-check-input">
         <label th:for="${#ids.prev('genre')}" th:text="${genre.getValue()}" class="form-check-label"></label>
       </div>
-
-
-      <!--        <select th:field="*{genre}" class="form-select" th:errorclass="field-error">-->
-      <!--          <option th:each="genre : ${genres}" th:value="${genre}" th:text="${genre.getName()}">네임</option>-->
-      <!--        </select>-->
-      <!--        <div class="field-error" th:errors="*{genre}">오류</div>-->
+      <div class="field-error" th:errors="*{genre}"></div>
 
       <div th:if="${#fields.hasGlobalErrors()}">
         <p class="field-error mts" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>

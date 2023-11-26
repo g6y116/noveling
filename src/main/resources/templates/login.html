@@ -17,20 +17,26 @@
     <h2>로그인</h2>
   </div>
 
-  <form th:action th:object="${loginForm}" method="post">
-    <div class="m3 mts">
-      <label for="loginId">로그인 ID</label>
-      <input type="text" id="loginId" th:field="*{loginId}" class="form-control">
+  <form th:action="@{/login}" method="post">
+    <div th:if="${param.error}">
+      <div class="alert alert-danger">
+        로그인 정보가 맞지 않습니다.
+      </div>
     </div>
 
     <div class="m3 mts">
-      <label for="loginPw">비밀번호</label>
-      <input type="password" id="loginPw" th:field="*{loginPw}" class="form-control">
+      <label for="username">로그인 ID</label>
+      <input type="text" id="username" name="username" class="form-control">
     </div>
 
-    <div th:if="${#fields.hasGlobalErrors()}">
-      <p class="field-error mts" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+    <div class="m3 mts">
+      <label for="password">비밀번호</label>
+      <input type="password" id="password" name="password" class="form-control">
     </div>
+
+<!--    <div th:if="${#fields.hasGlobalErrors()}">-->
+<!--      <p class="field-error mts" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>-->
+<!--    </div>-->
 
     <hr class="my-4">
 

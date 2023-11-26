@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="fragment/head :: head"/>
 
@@ -32,18 +32,22 @@
                         <small>날짜</small>
                     </div>
                     <p class="mb-1 mts" th:text="${comment.name}">작성자</p>
-                    <small><a class="btn btn-secondary btn-sm mts" th:href="@{/comment/delete(chapter_id=${chapter.id}, comment_id=${comment.id})}">댓글 삭제</a></small>
+                    <small><a class="btn btn-secondary btn-sm mts" sec:authorize="isAuthenticated()"
+                            th:if="${comment.name} eq ${#authentication.getPrincipal().getUsername()}"
+                            th:href="@{/comment/remove/{chapter_id}(chapter_id=${chapter.id})}">
+                                댓글 삭제
+                    </a></small>
                 </div>
             </div>
 
-            <form action="/comment/create" class="mts" method='post' th:if="${member} eq null">
+            <form class="mts" method='post' sec:authorize="isAnonymous()">
                 <textarea class="form-control" name="content" placeholder="댓글을 작성하려면 로그인 해주세요" rows="3" style="resize: none" disabled></textarea>
                 <div class="mts text-right">
                     <a class="btn btn-secondary btn-sm" th:href="@{/login}">로그인</a>
                 </div>
             </form>
 
-            <form action="/comment/create" class="mts" method='post' th:if="${member} neq null">
+            <form th:action="@{/comment/add/{chapter_id}(chapter_id=${chapter.id})}" class="mts" method='post' sec:authorize="isAuthenticated()">
                 <textarea class="form-control" name="content" placeholder="댓글을 작성해주세요" rows="3" style="resize: none"></textarea>
                 <input class="form-control" th:name="chapterId" th:value="|*{id}|" type="hidden">
                 <div class="mts text-right"><button class="btn btn-secondary btn-sm" type="submit">등록</button></div>

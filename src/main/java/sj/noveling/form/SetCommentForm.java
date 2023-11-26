@@ -15,7 +15,6 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class SetCommentForm {
 
-    @NotNull
     private Long id;
 
     @NotNull

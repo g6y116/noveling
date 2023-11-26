@@ -68,4 +68,15 @@ public class CommentService {
             return false;
         }
     }
+
+    public Long getChapterId(Long commentId) {
+
+        Optional<Comment> comment = commentRepository.findById(commentId);
+
+        if (comment.isPresent()) {
+            return comment.get().getChapter().getId();
+        } else {
+            throw new DataNotFoundException("댓글이 속한 회차가 존재하지 않습니다.");
+        }
+    }
 }

@@ -9,6 +9,8 @@ import sj.noveling.type.Genre;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,6 +76,8 @@ public class Novel {
     }
 
     public NovelDetailDto toNovelDetailDto() {
+        List<Chapter> reverseChapters = getChapters();
+        Collections.reverse(reverseChapters);
         return new NovelDetailDto(
                 getId(),
                 getTitle(),
@@ -81,7 +85,7 @@ public class Novel {
                 getCover(),
                 getGenre(),
                 getMember().getName(),
-                getChapters().stream().map(Chapter::toChapterSimpleDto).collect(Collectors.toList())
+                reverseChapters.stream().map(Chapter::toChapterSimpleDto).collect(Collectors.toList())
         );
     }
 

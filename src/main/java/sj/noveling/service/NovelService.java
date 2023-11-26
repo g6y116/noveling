@@ -1,6 +1,7 @@
 package sj.noveling.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import sj.noveling.dto.NovelDetailDto;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class NovelService {
@@ -44,6 +46,21 @@ public class NovelService {
 
         if (originResult.isPresent()) {
             return originResult.get().toNovelDetailDto();
+        } else {
+            throw new DataNotFoundException("작품이 존재하지 않습니다.");
+        }
+    }
+
+    public SetNovelForm getNovelForm(Long novelId) {
+        Optional<Novel> originResult = novelRepository.findById(novelId);
+        if (originResult.isPresent()) {
+            return new SetNovelForm(
+                    originResult.get().getId(),
+                    originResult.get().getTitle(),
+                    originResult.get().getDescription(),
+                    originResult.get().getCover(),
+                    originResult.get().getGenre()
+            );
         } else {
             throw new DataNotFoundException("작품이 존재하지 않습니다.");
         }

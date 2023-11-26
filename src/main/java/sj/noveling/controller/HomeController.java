@@ -3,24 +3,24 @@ package sj.noveling.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import sj.noveling.dto.CommentDto;
 import sj.noveling.dto.NovelSimpleDto;
 import sj.noveling.entity.Member;
+import sj.noveling.exception.NoPermissionException;
 import sj.noveling.form.JoinForm;
-import sj.noveling.form.LoginForm;
 import sj.noveling.service.ChapterService;
 import sj.noveling.service.CommentService;
 import sj.noveling.service.MemberService;
 import sj.noveling.service.NovelService;
 import sj.noveling.type.Genre;
 
+import java.security.Principal;
 import java.util.List;
 
 @Slf4j
@@ -87,25 +87,61 @@ public class HomeController {
         return "join";
     }
 
-    @GetMapping("/login")
-    public String login(
-            @ModelAttribute LoginForm loginForm,
+    @PostMapping("/join")
+    public String joinDo(
+            @Validated JoinForm joinForm,
             BindingResult bindingResult
     ) {
+
+        if (bindingResult.hasErrors()) {
+            bindingResult.reject("fail", "회원가입 실패");
+            return "join";
+        }
+
+        try {
+            Member member = memberService.join(joinForm);
+        } catch (Exception e) {
+            bindingResult.reject("fail", e.getMessage());
+            return "join";
+        }
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/login")
+    public String login() {
         return "login";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/myPage")
     public String myPage(
+            Principal principal, // 스프링 시큐리티가 제공하는 Principal 객체 : 현재 로그인한 사용자에 대한 정보 조회
             Model model
     ) {
-        Member member = memberService.getMember(1L);
-        List<NovelSimpleDto> novels = memberService.getMyNovels(1L);
-        List<CommentDto> comments = memberService.getMyComments(1L);
+        Member member = memberService.getMember(principal.getName());
+
+        if (member == null || !member.getName().equals(principal.getName())) {
+            throw new NoPermissionException("수정권한이 없습니다.");
+        }
+
+        List<NovelSimpleDto> novels = memberService.getMyNovels(member.getId());
+        List<CommentDto> comments = memberService.getMyComments(member.getId());
 
         model.addAttribute("member", member);
         model.addAttribute("novels", novels);
         model.addAttribute("comments", comments);
         return "myPage";
+    }
+
+    @GetMapping("/removeMember/{member_id}")
+    public String removeMember(
+            @PathVariable("member_id") Long memberId
+    ) {
+        if (memberId == null) {
+            return "redirect:/";
+        }
+        memberService.removeMember(memberId);
+        return "redirect:/logout";
     }
 }

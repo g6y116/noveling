@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="fragment/head :: head"/>
 
@@ -34,10 +34,14 @@
                     <p class="fs-6 fw-medium">[[*{description}]]</p>
 
                     <!--                    <div class="mts text-right" th:if="(${member} neq null) and ${member.name} eq *{name}">-->
-                    <a th:href="@{/novel/set/{novel_id}(novel_id=${novel.id})}">
+                    <a sec:authorize="isAuthenticated()"
+                       th:if="${novel.name} eq ${#authentication.getPrincipal().getUsername()}"
+                       th:href="@{/novel/set/{novel_id}(novel_id=${novel.id})}">
                         <button class="btn btn-secondary btn-sm" type="button">작품 수정</button>
                     </a>
-                    <a th:href="@{/novel/remove/{novel_id}(novel_id=${novel.id})}">
+                    <a sec:authorize="isAuthenticated()"
+                       th:if="${novel.name} eq ${#authentication.getPrincipal().getUsername()}"
+                       th:href="@{/novel/remove/{novel_id}(novel_id=${novel.id})}">
                         <button class="btn btn-secondary btn-sm" type="button">작품 삭제</button>
                     </a>
                     <!--                    </div>-->
@@ -56,20 +60,23 @@
                                 <div class="fw-bold" th:text="${chapter.title}"></div>
 
                                 <a class="btn btn-secondary btn-sm mts"
+                                   sec:authorize="isAuthenticated()"
+                                   th:if="${novel.name} eq ${#authentication.getPrincipal().getUsername()}"
                                    th:href="@{/chapter/set/{chapter_id}(chapter_id=${chapter.id})}">회차 수정</a>
                                 <a class="btn btn-secondary btn-sm mts"
+                                   sec:authorize="isAuthenticated()"
+                                   th:if="${novel.name} eq ${#authentication.getPrincipal().getUsername()}"
                                    th:href="@{/chapter/remove/{chapter_id}(chapter_id=${chapter.id})}">회차
                                     삭제</a>
-                                <!--                            <div class="mts text-right" th:if="(${member} neq null) and ${member.name} eq *{name}">-->
-                                <!--                            </div>-->
                             </div>
                         </li>
                     </a>
                 </div>
             </ol>
 
-            <!--            <div class="mts text-right" th:if="${member} neq null">-->
-            <a th:href="@{/chapter/add/{novel_id}(novel_id=${novel.id})}">
+            <a sec:authorize="isAuthenticated()"
+               th:if="${novel.name} eq ${#authentication.getPrincipal().getUsername()}"
+               th:href="@{/chapter/add/{novel_id}(novel_id=${novel.id})}">
                 <button class="btn btn-secondary btn-sm mtl" type="button">회차 추가</button>
             </a>
             <!--            </div>-->

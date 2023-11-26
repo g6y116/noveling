@@ -51,8 +51,8 @@ public class MemberService {
         }
     }
 
-    public Member getMember(Long memberId) {
-        Optional<Member> member = memberRepository.findById(memberId);
+    public Member getMember(String name) {
+        Optional<Member> member = memberRepository.findByName(name);
 
         if (member.isPresent()) {
             return member.get();

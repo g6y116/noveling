@@ -25,6 +25,6 @@ public class AddNovelForm {
 
     private String cover;
 
-    @NotNull
+    @NotNull(message = "장르를 선택해주세요.")
     private Genre genre;
 }

@@ -8,6 +8,7 @@ import sj.noveling.entity.Novel;
 import sj.noveling.exception.DataNotFoundException;
 import sj.noveling.form.AddChapterForm;
 import sj.noveling.form.SetChapterForm;
+import sj.noveling.form.SetNovelForm;
 import sj.noveling.repository.*;
 
 import java.time.LocalDateTime;
@@ -37,6 +38,20 @@ public class ChapterService {
 
         if (chapter.isPresent()) {
             return chapter.get().toChapterDetailDto();
+        } else {
+            throw new DataNotFoundException("회차가 존재하지 않습니다.");
+        }
+    }
+
+    public SetChapterForm getChapterForm(Long chapterId) {
+        Optional<Chapter> originResult = chapterRepository.findById(chapterId);
+        if (originResult.isPresent()) {
+            return new SetChapterForm(
+                    originResult.get().getId(),
+                    originResult.get().getNovel().getId(),
+                    originResult.get().getTitle(),
+                    originResult.get().getContent()
+            );
         } else {
             throw new DataNotFoundException("회차가 존재하지 않습니다.");
         }
@@ -85,6 +100,17 @@ public class ChapterService {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public Long getNovelId(Long chapterId) {
+
+        Optional<Chapter> chapter = chapterRepository.findById(chapterId);
+
+        if (chapter.isPresent()) {
+            return chapter.get().getNovel().getId();
+        } else {
+            throw new DataNotFoundException("회차가 속한 작품이 존재하지 않습니다.");
         }
     }
 }

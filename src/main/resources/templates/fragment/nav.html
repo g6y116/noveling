@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <nav class="py-2 bg-body-tertiary border-bottom" th:fragment="nav">
   <div class="container d-flex flex-wrap">
@@ -10,14 +10,22 @@
       <li class="nav-item active"><a class="nav-link link-body-emphasis px-2" href="/genre/역사">역사</a></li>
     </ul>
 
-    <ul class="nav">
-      <li class="nav-item"><a href="/login" class="nav-link link-body-emphasis px-2">로그인</a></li>
-      <li class="nav-item"><a href="/join" class="nav-link link-body-emphasis px-2">회원가입</a></li>
+    <ul class="nav" sec:authorize="isAnonymous()">
+      <li class="nav-item">
+        <a th:href="@{/login}" class="nav-link link-body-emphasis px-2">로그인</a>
+      </li>
+      <li class="nav-item">
+        <a th:href="@{/join}" class="nav-link link-body-emphasis px-2">회원가입</a>
+      </li>
     </ul>
 
-    <ul class="nav">
-      <li class="nav-item"><a href="/logout" class="nav-link link-body-emphasis px-2">로그아웃</a></li>
-      <li class="nav-item"><a href="/myPage" class="nav-link link-body-emphasis px-2">[[|님|]]</a></li>
+    <ul class="nav" sec:authorize="isAuthenticated()">
+      <li class="nav-item">
+        <a th:href="@{/logout}" class="nav-link link-body-emphasis px-2">로그아웃</a>
+      </li>
+      <li class="nav-item">
+        <a th:href="@{/myPage}" class="nav-link link-body-emphasis px-2">[[|${#authentication.getPrincipal().getUsername()}님|]]</a>
+      </li>
     </ul>
   </div>
 </nav>

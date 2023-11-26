@@ -15,7 +15,6 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class AddCommentForm {
 
-    @NotNull
     private Long chapterId;
 
     @NotEmpty(message = "필수 입력 항목입니다.")

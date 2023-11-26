@@ -16,7 +16,6 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class SetNovelForm {
 
-    @NotNull
     private Long id;
 
     @NotEmpty(message = "필수 입력 항목입니다.")
