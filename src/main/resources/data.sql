@@ -1,3 +1,4 @@
+
 insert into member (member_name, member_login_id, member_login_pw, member_grade)
 values ('장성준', 'qwer', 'qwerqwer', 'AUTHOR');
 
