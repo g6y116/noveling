@@ -2,6 +2,7 @@ package sj.noveling.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Controller
-public class HomeController {
+public class HomeController implements ErrorController {
 
     private final MemberService memberService;
     private final NovelService novelService;
@@ -46,6 +47,7 @@ public class HomeController {
     ) {
         Page<NovelSimpleDto> novels = novelService.getNovels(page, query, null);
         model.addAttribute("novels", novels);
+        if (query != null) model.addAttribute("query", query);
         return "index";
     }
 
@@ -76,6 +78,7 @@ public class HomeController {
         Page<NovelSimpleDto> novels = novelService.getNovels(page, query, type);
         model.addAttribute("novels", novels);
         model.addAttribute("genre", type);
+        if (query != null) model.addAttribute("query", query);
         return "index";
     }
 
@@ -143,5 +146,10 @@ public class HomeController {
         }
         memberService.removeMember(memberId);
         return "redirect:/logout";
+    }
+
+    @RequestMapping("/error")
+    public String error() {
+        return "error";
     }
 }
