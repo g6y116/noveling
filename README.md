@@ -3,12 +3,12 @@
   <H1>모두의 소설 공간 - Noveling</H1>
 </div>
 
-# 서비스 정보
+# 배포 정보
 
-> [Site Link](http://13.124.98.233)
+ http://13.124.98.233
 
-- `TestId : qwer`
-- `TestPw : qwerqwer`
+- ID : qwer
+- Pw : qwerqwer
 
 # 소개
 
@@ -16,15 +16,18 @@
 - 학생 시절 PHP로 만들었던 기획을 가져와 Spring으로 구현하였습니다.
 - 현재 이 프로젝트는 AWS LightSail로 호스팅 되고 있습니다.
 
-<div align="center">
-  <img src="https://github.com/g6y116/PersonalProject/raw/main/Novelling/novelling_screenshot.gif" width="85%">
-  
-  [학생 시절 PHP로 만든 프로젝트](https://github.com/g6y116/PersonalProject#novelling)
-
-  <img src="https://github.com/g6y116/PersonalProject/assets/121198194/18f458c1-3479-49a2-a2ba-928577ab4a96" width="85%">
-
-  [현재 호스팅 중인 링크](http://13.124.98.233)
-</div>
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/g6y116/Noveling/assets/121198194/e820abbf-1318-4af6-b03b-6ec86a515618" width="400px">
+      <figcaption><p>학생 시절 PHP로 만든 사이트</p></figcaption>
+    </td>
+    <td align="center">
+      <img src="https://github.com/g6y116/PersonalProject/assets/121198194/18f458c1-3479-49a2-a2ba-928577ab4a96" width="400px">
+      <figcaption><p>현재 호스팅 사이트</p></figcaption>
+    </td>
+  </tr>
+</table>
 
 # 프로젝트 정보
 
