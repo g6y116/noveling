@@ -114,9 +114,9 @@ SecurityConfig.java
     }
 ```
 
-### [전체/장르별/검색어로]소설 조회 및 페이징
+### 소설 조회 및 페이징(장르 / 검색)
 
-동적 쿼리를 쿼리dsl로 구현
+QueryDsl로 동적 쿼리
 
 <img src="https://github.com/g6y116/PersonalProject/assets/121198194/484017b6-f0d6-4871-b618-df2186a2032f" width="80%">
 
@@ -145,9 +145,12 @@ private BooleanExpression genreEq(Genre genre) {
 }
 ```
 
-### [소설/회차/댓글]CRUD
+### 소설 / 회차 / 댓글 CRUD
 
-빈 유효성 검사 / 권한이 없는 경우 리다이렉트 / 예외 발생 시 오류페이지 표시 / 컨트롤러에 DTO 반환 후 사용
+- 빈 유효성 검사
+- 권한이 없는 경우 리다이렉트
+- 예외 발생 시 오류페이지 표시
+- 컨트롤러에 DTO 반환 후 사용
 
 <img src="https://github.com/g6y116/PersonalProject/assets/121198194/fd1f9eed-617d-4601-a649-e13ec6739100" width="80%">
 
@@ -191,9 +194,9 @@ public class AddNovelForm {
 }
 ```
 
-### [인기/최신]작품 추천
+### 인기 작품 / 최신 작품 추천
 
-인기작은 조회 수 기반, 최신작은 회차 추가/업데이트 시간을 기반으로 추천
+인기 작품은 조회 수 기반, 최신 작품은 회차 업데이트를 기반으로 추천
 
 <img src="https://github.com/g6y116/PersonalProject/assets/121198194/5e1285ec-8e99-4968-83c9-750dff963ca6" width="30%">
 
@@ -248,10 +251,10 @@ public List<Novel> bestNovels() {
 엔티티명 변경
 
 User -> Member
-- User이 DB에서 예약어로 지정되어 있어 변경
+- User가 DB에서 예약어로 지정되어 있어 변경
 
 Page -> Chapter
-- org.springframework.data.domain.Page과 클래스명이 겹쳐서 변경
+- org.springframework.data.domain.Page와 클래스명이 겹쳐서 변경
 - 코틀린에서는 임포트 부분에 as로 별칭을 줄 수 있으나 자바는 없어서 아쉬웠음.
 
 코틀린의 data class를 사용할 수 없었으나 롬북을 사용하여 코드의 부피를 줄일 수 있었음.
