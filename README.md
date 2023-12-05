@@ -8,7 +8,7 @@
  http://13.124.98.233
 
 - ID : qwer
-- Pw : qwerqwer
+- PW : qwerqwer
 
 # 소개
 
@@ -35,6 +35,23 @@
 - Thymeleaf / Spring Data JPA / QueryDsl / Lombok / SpringSecurity / Bootstrap 5.0
 - Mysql 8.0.35 / H2
 - AWS LightSail
+
+# 구현 로그
+
+- 엔티티명 변경
+
+- User -> Member
+  - User가 DB에서 예약어로 지정되어 있어 변경
+
+- Page -> Chapter
+  - org.springframework.data.domain.Page와 클래스명이 겹쳐서 변경
+  - 코틀린에서는 임포트 부분에 as로 별칭을 줄 수 있으나 자바는 없어서 아쉬웠음.
+
+- 쿼리 dsl 코드의 부피가 크지 않아 분리된 레포지토리 클래스로 작성
+
+- 서비스별로 테스트 코드 작성
+
+- AWS 비용 이슈로 인해 AWS LightSail 사용
 
 # 패키지 구조
 
@@ -245,22 +262,3 @@ public List<Novel> bestNovels() {
     return contents;
 }
 ```
-
-# 구현 로그
-
-엔티티명 변경
-
-User -> Member
-- User가 DB에서 예약어로 지정되어 있어 변경
-
-Page -> Chapter
-- org.springframework.data.domain.Page와 클래스명이 겹쳐서 변경
-- 코틀린에서는 임포트 부분에 as로 별칭을 줄 수 있으나 자바는 없어서 아쉬웠음.
-
-코틀린의 data class를 사용할 수 없었으나 롬북을 사용하여 코드의 부피를 줄일 수 있었음.
-
-쿼리 dsl 코드의 부피가 크지 않아 분리된 레포지토리 클래스로 작성
-
-서비스별로 테스트 코드 작성
-
-AWS 비용 이슈로 인해 AWS LightSail 사용
