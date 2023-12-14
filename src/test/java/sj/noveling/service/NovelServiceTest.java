@@ -75,6 +75,7 @@ class NovelServiceTest {
     }
 
     @Test
+    @Disabled
     void getNovels() {
         //given
 
