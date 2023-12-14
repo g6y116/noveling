@@ -48,7 +48,7 @@ jobs:
       run: cp ./build/libs/*.jar ./deploy
 
     - name: Make zip file
-      run: zip -r ./coinTalk.zip ./deploy
+      run: zip -r ./noveling.zip ./deploy
       shell: bash
 
     - name: Configure AWS credentials
@@ -59,4 +59,4 @@ jobs:
         aws-region: ap-northeast-2
 
     - name: Upload to S3
-      run: aws s3 cp --region ap-northeast-2 ./coinTalk.zip s3://noveling-s3/
+      run: aws s3 cp --region ap-northeast-2 ./noveling.zip s3://noveling-s3/noveling.zip
