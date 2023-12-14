@@ -30,11 +30,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @SpringBootTest
-@Slf4j
 @Transactional(readOnly = false)
 @Rollback(value = true)
 class NovelServiceTest {
+
+    private static final Logger log = LoggerFactory.getLogger(NovelServiceTest.class);
 
     @PersistenceContext
     EntityManager em;
