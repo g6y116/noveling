@@ -5,16 +5,18 @@
 
 # 배포 정보
 
- http://13.124.98.233
+서비스 링크
 
+[Noveling](http://http://ec2-13-209-207-54.ap-northeast-2.compute.amazonaws.com)
+
+테스트 계정 정보
 - ID : qwer
 - PW : qwerqwer
 
 # 소개
 
-- 소설을 올리고 공유하는 포트폴리오 사이트입니다.
+- 소설을 올리고 공유하는 사이트입니다.
 - 학생 시절 PHP로 만들었던 기획을 가져와 Spring으로 구현하였습니다.
-- 현재 이 프로젝트는 AWS LightSail로 호스팅 되고 있습니다.
 
 <table>
   <tr>
@@ -29,29 +31,27 @@
   </tr>
 </table>
 
+# 아키텍처 정보
+
+<img src="https://github.com/g6y116/Noveling/assets/121198194/4a05d751-5644-4703-af85-f47376580de1" width="800px">
+
 # 프로젝트 정보
 
-- Java 11 / SpringBoot 2.7.17
-- Thymeleaf / Spring Data JPA / QueryDsl / Lombok / SpringSecurity / Bootstrap 5.0
-- Mysql 8.0.35 / H2
-- AWS LightSail
+- Java 11, SpringBoot 2.7.17, Mysql 8.0.35
+- Thymeleaf, Spring Data JPA, QueryDsl, SpringSecurity, Lombok, Bootstrap 5.0
+- AWS EC2, AWS RDS, Docker, Github Action
 
-# 구현 로그
+# 변경 사항
 
-- 엔티티명 변경
-
-- User -> Member
+- 엔티티명 변경 : User -> Member
   - User가 DB에서 예약어로 지정되어 있어 변경
 
-- Page -> Chapter
+- 엔티티명 변경 : Page -> Chapter
   - org.springframework.data.domain.Page와 클래스명이 겹쳐서 변경
   - 코틀린에서는 임포트 부분에 as로 별칭을 줄 수 있으나 자바는 없어서 아쉬웠음.
 
 - 쿼리 dsl 코드의 부피가 크지 않아 분리된 레포지토리 클래스로 작성
 
-- 서비스별로 테스트 코드 작성
-
-- AWS 비용 이슈로 인해 AWS LightSail 사용
 
 # 패키지 구조
 
@@ -106,11 +106,12 @@
  ┃ ┣ 📜NovelingApplication.java
  ┃ ┗ 📜SecurityConfig.java
 ```
+
 # 핵심 기능
 
 ### 로그인/회원가입
 
-스프링 시큐리티를 사용하여 기능 구현
+- 스프링 시큐리티를 사용하여 기능을 구현하였습니다.
 
 <img src="https://github.com/g6y116/PersonalProject/assets/121198194/3cc0d0ed-8497-4acd-af3b-0aa7ce915bed" width="40%">
 
@@ -131,9 +132,11 @@ SecurityConfig.java
     }
 ```
 
-### 소설 조회 및 페이징(장르 / 검색)
+### 소설 조회 및 페이징
 
-QueryDsl로 동적 쿼리
+- 장르별 / 검색어로 조회할 수 있습니다.
+- 페이징 처리를 구현 하였습니다.
+- QueryDsl로 동적 쿼리를 구현하였습니다.
 
 <img src="https://github.com/g6y116/PersonalProject/assets/121198194/484017b6-f0d6-4871-b618-df2186a2032f" width="80%">
 
@@ -162,12 +165,13 @@ private BooleanExpression genreEq(Genre genre) {
 }
 ```
 
-### 소설 / 회차 / 댓글 CRUD
+### 소설, 회차, 댓글 CRUD
 
-- 빈 유효성 검사
-- 권한이 없는 경우 리다이렉트
-- 예외 발생 시 오류페이지 표시
-- 컨트롤러에 DTO 반환 후 사용
+- 빈 유효성 검사를 적용하였습니다.
+- 권한이 없는 경우 리다이렉트 처리하였습니다.
+- 예외 발생 시 오류페이지를 뛰우도록 하였습니다.
+- 서비스 계층에서 DTO 반환 후 컨트롤러에서 뷰에 데이터를 넘겨주도록 하였습니다.
+- 작성자 본인인 경우 추가적인 작업이 가능하도록 구현하였습니다.
 
 <img src="https://github.com/g6y116/PersonalProject/assets/121198194/fd1f9eed-617d-4601-a649-e13ec6739100" width="80%">
 
@@ -213,7 +217,8 @@ public class AddNovelForm {
 
 ### 인기 작품 / 최신 작품 추천
 
-인기 작품은 조회 수 기반, 최신 작품은 회차 업데이트를 기반으로 추천
+- 인기 작품 : 조회 수 기반으로 가중치를 주어 판단하였습니다.
+- 최신 작품 : 소설 정보 변경, 회차 정보 생성/변경 시간을 기반으로 판단하였습니다.
 
 <img src="https://github.com/g6y116/PersonalProject/assets/121198194/5e1285ec-8e99-4968-83c9-750dff963ca6" width="30%">
 
