@@ -7,7 +7,7 @@
 
 서비스 링크
 
-[Noveling](http://http://ec2-13-209-207-54.ap-northeast-2.compute.amazonaws.com)
+[모두의 소설 공간 - Noveling](http://ec2-13-209-207-54.ap-northeast-2.compute.amazonaws.com)
 
 테스트 계정 정보
 - ID : qwer
