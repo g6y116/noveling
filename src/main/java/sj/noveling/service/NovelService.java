@@ -88,7 +88,7 @@ public class NovelService {
         Novel novel = novelRepository.save(new Novel(
             form.getTitle(),
             form.getDescription(),
-            form.getCover(),
+            "기본.jpg", // 추후 이미지 업로드 추가
             form.getGenre(),
             member
         ));

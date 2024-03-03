@@ -15,7 +15,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(prePostEnabled = true) // 모든 요청 URL이 스프링 시큐리티의 제어를 받도록 만드는 애너테이션이다. // @PreAuthorize 애너테이션을 사용하기 위해 반드시 필요하다.
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     @Bean

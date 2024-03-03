@@ -1,0 +1,6 @@
+version: '3'
+services:
+  springboot:
+    image: g6y116/noveling
+    ports:
+      - "80:8080"

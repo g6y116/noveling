@@ -1,3 +1,5 @@
 FROM openjdk:11-jdk
-COPY build/libs/*.jar noveling.jar
-ENTRYPOINT ["java", "-jar", "/noveling.jar"]
+WORKDIR /app
+COPY build/libs/*.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","-Dspring.profiles.active=server","app.jar"]

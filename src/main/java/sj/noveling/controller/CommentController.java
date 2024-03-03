@@ -60,14 +60,14 @@ public class CommentController {
 
     @GetMapping("/remove/{comment_id}")
     public String removeCommentDo(
-            Principal principal,
+//            Principal principal,
             @PathVariable(name = "comment_id") Long commentId
     ) {
-        Member member = memberService.getMember(principal.getName());
-
-        if (member == null || !member.getName().equals(principal.getName())) {
-            throw new NoPermissionException("수정권한이 없습니다.");
-        }
+//        Member member = memberService.getMember(principal.getName());
+//
+//        if (member == null || !member.getName().equals(principal.getName())) {
+//            throw new NoPermissionException("수정권한이 없습니다.");
+//        }
 
         Long chapterId = commentService.getChapterId(commentId);
         commentService.removeComment(commentId);

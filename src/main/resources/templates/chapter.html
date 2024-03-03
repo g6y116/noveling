@@ -35,7 +35,7 @@
                     <p class="mb-1 mts" th:text="${comment.name}">작성자</p>
                     <small><a class="btn btn-secondary btn-sm mts" sec:authorize="isAuthenticated()"
                             th:if="${comment.name} eq ${#authentication.getPrincipal().getUsername()}"
-                            th:href="@{/comment/remove/{chapter_id}(chapter_id=${chapter.id})}">
+                            th:href="@{/comment/remove/{comment_id}(comment_id=${comment.id})}">
                                 댓글 삭제
                     </a></small>
                 </div>
